@@ -1,0 +1,61 @@
+<div class="container-fluid tax-page">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+
+      <div class="tabs-section">
+        <button class="btn btn-tabs" (click)="toggleTab('netPay')" [ngClass]="{'active-tab':currentTab === 'netPay'}">
+          Tax calculator
+        </button>
+        <button class="btn btn-tabs" (click)="toggleTab('bills')" [ngClass]="{'active-tab':currentTab === 'bills'}">
+          Bill manager
+        </button>
+      </div>
+
+      <div class="gross-input">
+        <div class="form-group">
+          <label for="grossSalary">Gross salary</label>
+          <input type="text" class="form-control" name="grossSalary" [(ngModel)]="grossObject.grossSalary" (keyup.enter)="calculateNetSalary()" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="result-section">
+
+        <div class="d-flex justify-content-between">
+          <h6>Taxable income</h6>
+          <span class="d-inline">Ksh {{grossResponse?.taxPayable ?? 0 | currency:'USD':''}}</span>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <h6>Net salary</h6>
+          <span class="d-inline">Ksh {{grossResponse?.netPay ?? 0 | currency: 'USD':''}}</span>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <h6>PAYE</h6>
+          <span class="d-inline">Ksh {{grossResponse?.paye ?? 0 | currency: 'USD':''}}</span>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <h6>NSSF contribution</h6>
+          <span class="d-inline">Ksh {{grossResponse?.nssfamount ?? 0 | currency: 'USD':''}}</span>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <h6>Tax before relief</h6>
+          <span class="d-inline">Ksh {{grossResponse?.paye - grossResponse?.personalRelief - grossResponse?.insuranceRelief }} </span>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <h6>Personal relief</h6>
+          <span class="d-inline">Ksh {{grossResponse?.personalRelief ?? 0 | currency: 'USD':''}}</span>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <h6>NHIF contribution</h6>
+          <span class="d-inline">Ksh {{grossResponse?.nhifamount ?? 0 | currency: 'USD':''}}</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
